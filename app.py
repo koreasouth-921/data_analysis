@@ -233,7 +233,8 @@ with tab3:
     st.plotly_chart(sc, width="stretch")
 
     pearson = agg["daly"].corr(agg["research_count"], method="pearson")
-    spearman = agg["daly"].corr(agg["research_count"], method="spearman")
+    # 스피어먼 = 순위로 바꾼 값의 피어슨 상관계수 (scipy 없이 계산)
+    spearman = agg["daly"].rank().corr(agg["research_count"].rank(), method="pearson")
     c1, c2 = st.columns(2)
     c1.metric("피어슨 상관계수", f"{pearson:.2f}")
     c2.metric("스피어먼 순위상관계수", f"{spearman:.2f}")
